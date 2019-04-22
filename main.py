@@ -32,15 +32,19 @@ def signup():
         verify_error = ''
         email_fail = ''
 
-    if len(username) < 2 or len(username) > 20:
+    if len(username) < 3 or len(username) > 20:
         un_error = "Oopsies!  Please enter a valid username."
-  
+        username = ''
+    elif ' ' in username:
+        un_error = "Remove spaces from your username!"
+        username = ''
+      
             
     if len(password) == 0:
         pw_error = 'You need to add a password.'
         #return redirect("/?error=" + pw_error)
 
-    elif len(password) < 2 or len(password) > 20:
+    elif len(password) < 3 or len(password) > 20:
         pw_error = 'Please enter a valid password'
         #flash(pw_error)
 
@@ -51,8 +55,7 @@ def signup():
     if len(email) > 0:
         if not is_email(email):
             email_fail = 'Rut-Roh... ' + email + ' might not be a "REAL" email address!'
-            #return redirect("/?error=" + email_fail)
-            #return redirect('/')
+            email = ''
 
     if not (un_error or
             pw_error or
@@ -60,7 +63,7 @@ def signup():
             email_fail):
         return render_template('welcome.html', username=username)
     else:
-        return render_template('index.html', un_error=un_error, pw_error=pw_error, verify_error=verify_error, email_fail=email_fail)
+        return render_template('index.html', username=username, email=email, un_error=un_error, pw_error=pw_error, verify_error=verify_error, email_fail=email_fail)
         
 
 #@app.before_request
@@ -72,8 +75,7 @@ def signup():
 #def winner():
 #    user = request.args.get('username')
 #    return render_template('welcome.html', user=username)
-
-
+ 
 
 
 def is_email(string):

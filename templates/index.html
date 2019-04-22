@@ -6,31 +6,36 @@
                 text-align: Right;
             } 
         </Style>
+        <title>User Signup LC101</title>
     </head>
     <body>
         <h1>SignUp:</h1>
-        <form method="post">
+        <form action="/signup" method="post">
             <table>
 
                 <tr>
-                    <th>User Name:</th>
-                    <th><input type="text"></th>
+                    <th>Username:</th>
+                    <th><input type="text" name="username"></th>
+                    <span class="error"></span>
                 </tr>
                 <tr>
                     <th>Password:</th>
-                    <th><input type="text"></th>
+                    <th><input type="password" name="password"></th>
+                    <span class="error"></span>
                 </tr>
                 <tr>
                     <th>Re-Enter Password:</th>
-                    <th><input type="text"></th>
+                    <th><input type="password" name="verify"></th>
+                    <span class="error"></span>
                 </tr>
                 <tr>
                     <th>Email (optional):</th>
-                    <th><input type="email"></th>
+                    <th><input type="text" name="email"></th>
+                    <span class="error"></span>
                 </tr>
             </table>
             <input type="Submit">
         </form>
-        <div style=
-    </body>
+
+    </body> 
 </html>

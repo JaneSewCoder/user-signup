@@ -1,6 +1,6 @@
 from flask import Flask, request, redirect, render_template, session, flash
 import cgi
-#import os
+# import os
 # import jinja2
 
 app = Flask(__name__)
@@ -9,9 +9,15 @@ app.config['DEBUG'] = True
 
 #app for sign up form
 @app.route("/", methods=['GET', 'POST'])
+def index():
+    encoded_error = request.args.get("error")
+    
+    return render_template('index.html', signup=signup(), error=encoded_error and cgi.escape(encoded_error, quote=True))
+
+@app.route("/", methods=['GET', 'POST'])
 def signup():
     if request.method =='POST':
-        email = request.form['username']
+        username = request.form['username']
         password = request.form['password']
         verify = request.form['verify']
         email = request.form['email']
@@ -22,7 +28,9 @@ def signup():
         else:
             flash('You did a great job entering the right stuff!')
 
-
+#@app.before_request
+#def require_signup():
+#    return redirect("/signup")
 
 # app for success page
 # @app.route("/success", methods=['GET', 'POST'])
@@ -40,3 +48,10 @@ def is_email(string):
         domain_dot_index = string.find('.', atsign_index)
         domain_dot_present = domain_dot_index >= 0
         return domain_dot_present
+
+
+app.secret_key = 'A0Qr978j/3AyX Rob~XHeeH!j23mN]L43WX/,?RU'
+
+if __name__ == "__main__":
+
+    app.run()

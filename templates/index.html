@@ -4,35 +4,35 @@
         <Style>
             .error {color: red}
             th {
-                text-align: Right;
+                text-align: Left;
             } 
         </Style>
         <title>User Signup LC101</title>
     </head>
     <body>
         <h1>SignUp:</h1>
-        <form action="/" method="post">
+        <form action="/signup" method="post">
             <table>
 
                 <tr>
                     <th>Username:</th>
                     <th><input type="text" name="username"></th>
-                    <span class="error"></span>
+                    <th><span class="error">{{ un_error }}</span></th>
                 </tr>
                 <tr>
                     <th>Password:</th>
                     <th><input type="password" name="password"></th>
-                    <span class="error"></span>
+                    <th><span class="error">{{ pw_error }}</span></th>
                 </tr>
                 <tr>
                     <th>Re-Enter Password:</th>
                     <th><input type="password" name="verify"></th>
-                    <span class="error"></span>
+                    <th><span class="error">{{ verify_error }}</span></th>
                 </tr>
                 <tr>
                     <th>Email (optional):</th>
                     <th><input type="text" name="email"></th>
-                    <span class="error"></span>
+                    <th><span class="error">{{ email_fail }}</span></th>
                 </tr>
             </table>
             <input type="Submit">

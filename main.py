@@ -12,21 +12,46 @@ app.config['DEBUG'] = True
 def index():
     encoded_error = request.args.get("error")
     
-    return render_template('index.html', signup=signup(), error=encoded_error and cgi.escape(encoded_error, quote=True))
+    return render_template('index.html') #, signup=signup(), error=encoded_error and cgi.escape(encoded_error, quote=True)
 
 @app.route("/", methods=['GET', 'POST'])
+#def valid_signup():
+        
+
+
 def signup():
-    if request.method =='POST':
-        username = request.form['username']
-        password = request.form['password']
-        verify = request.form['verify']
-        email = request.form['email']
-        if not is_email(email):
-            flash('Rut-Roh... "' + email + '"might not be a <i>"REAL"</i> email address!')
-            flash('Try Again!')
-            return redirect('/')
-        else:
-            flash('You did a great job entering the right stuff!')
+    #if request.method =='POST':
+    username = request.form['username']
+    password = request.form['password']
+    verify = request.form['verify']
+    email = request.form['email']
+    
+    un_error = ''
+    pw_error = ''
+    verify_error = ''
+    email_fail = ''
+
+    if len(username) <= 4 or len(username) >= 20:
+        un_error = "Oopsies!  Please enter a valid email."
+        flash(un_error)
+            
+    if len(password) == 0:
+        pw_error = 'You need to add a password.'
+        flash(pw_error)
+    elif len(password) <= 4 or len(password) >= 20:
+        pw_error = 'Please enter a valid password'
+        flash(pw_error)
+
+    if verify != password:
+        verify_error = 'These passwords do not match. Make them the same, and write them down somewhere so you do not forget'
+        flash(verify_error)
+        
+    if not is_email(email):
+        flash('Rut-Roh... "' + email + '"might not be a <i>"REAL"</i> email address!')
+
+        #return redirect('/')
+    else:
+        flash('You did a great job entering the right stuff!')
 
 #@app.before_request
 #def require_signup():
